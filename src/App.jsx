@@ -8,13 +8,22 @@ const App = () => {
   ])
   const [newName, setNewName] = useState('')
 
+
+  const isAlreadyinBook = (name, arr) => {
+    return arr.some((element) => element.name === name);
+  };
+
   const submitName = (event) => {
     event.preventDefault();
-    let copy = [...persons]
-    copy.push({ name: newName })
-    setPersons(copy);
-    console.log(persons)
-    console.log(copy)
+
+    if (isAlreadyinBook(newName, persons)) {
+      alert(`${newName} is already in the book`)
+    } else {
+      let copy = [...persons]
+      copy.push({ name: newName })
+      setPersons(copy);
+      setNewName('');
+    }
   }
 
   const inputChangeHandler = (event) => {
