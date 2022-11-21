@@ -8,7 +8,13 @@ const App = () => {
   ])
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+  const [filter, setFilter] = useState('');
 
+  const filterHandler = (event) => {
+    event.preventDefault();
+    setFilter(event.target.value);
+    console.log(filter);
+  }
 
   const isAlreadyinBook = (name, arr) => {
     return arr.some((element) => element.name === name);
@@ -42,6 +48,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <p>Find entry:</p>
+      <input value={filter} placeholder='type name here...' onChange={filterHandler} />
       <form onSubmit={submitName}>
         <div>
           name: <input value={newName} placeholder='insert a name here' onChange={inputChangeHandler} />
