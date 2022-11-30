@@ -1,4 +1,4 @@
-import axios from "axios";
+import personService from '../services/person';
 
 const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, persons }) => {
 
@@ -9,14 +9,14 @@ const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, pers
             alert(`${newName} is already in the book`)
         } else {
             const newPerson = { name: newName, number: newNumber }
-            axios
-                .post('http://localhost:3000/persons', newPerson)
+
+            personService
+                .createNew(newPerson)
                 .then(response => {
-                    console.log(response);
                     setPersons(persons.concat(response.data));
                     setNewName('');
                     setNewNumber('');
-                })
+                });
         }
     }
 

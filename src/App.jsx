@@ -1,27 +1,24 @@
 import './App.css'
-
-import axios from 'axios';
-
 import Filter from './components/Filter'
 import AddNew from './components/AddNew'
 import ContactList from './components/ContactList'
 
 import { useState, useEffect } from 'react'
 
-const App = () => {
+import personService from './services/person.js'
 
+const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3000/persons')
+    personService.getAll()
       .then(response => {
-        setPersons(response.data)
+        setPersons(response.data);
       })
-  }, []);
+  });
 
   return (
     <div>
