@@ -8,20 +8,15 @@ const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, pers
         if (isAlreadyinBook(newName, persons)) {
             alert(`${newName} is already in the book`)
         } else {
-
             const newPerson = { name: newName, number: newNumber }
-
             axios
                 .post('http://localhost:3000/persons', newPerson)
                 .then(response => {
-                    console.log(response)
+                    console.log(response);
+                    setPersons(persons.concat(response.data));
+                    setNewName('');
+                    setNewNumber('');
                 })
-
-            let copy = [...persons]
-            copy.push({ name: newName, number: newNumber })
-            setPersons(copy);
-            setNewName('');
-            setNewNumber('');
         }
     }
 
