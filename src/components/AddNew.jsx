@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, persons }) => {
 
     const submitName = (event) => {
@@ -6,6 +8,15 @@ const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, pers
         if (isAlreadyinBook(newName, persons)) {
             alert(`${newName} is already in the book`)
         } else {
+
+            const newPerson = { name: newName, number: newNumber }
+
+            axios
+                .post('http://localhost:3000/persons', newPerson)
+                .then(response => {
+                    console.log(response)
+                })
+
             let copy = [...persons]
             copy.push({ name: newName, number: newNumber })
             setPersons(copy);
@@ -29,17 +40,20 @@ const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, pers
     };
 
     return (
-        <form onSubmit={submitName}>
-            <div>
-                name: <input value={newName} placeholder='insert a name here' onChange={inputChangeHandler} />
-            </div>
-            <div>
-                name: <input value={newNumber} placeholder='insert a number here' onChange={numberChangeHandler} />
-            </div>
-            <div>
-                <button type="submit">add</button>
-            </div>
-        </form>
+        <div>
+            <h3>Add new:</h3>
+            <form onSubmit={submitName}>
+                <div>
+                    name: <input value={newName} placeholder='insert a name here' onChange={inputChangeHandler} />
+                </div>
+                <div>
+                    name: <input value={newNumber} placeholder='insert a number here' onChange={numberChangeHandler} />
+                </div>
+                <div>
+                    <button type="submit">add</button>
+                </div>
+            </form>
+        </div>
     )
 }
 

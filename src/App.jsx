@@ -17,7 +17,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/persons')
+      .get('http://localhost:3000/persons')
       .then(response => {
         setPersons(response.data)
       })
@@ -27,7 +27,6 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Filter filter={filter} setFilter={setFilter} />
-      <h3>Add new:</h3>
       <AddNew newName={newName}
         newNumber={newNumber}
         setNewName={setNewName}
