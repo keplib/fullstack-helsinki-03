@@ -19,7 +19,7 @@ const App = () => {
       .then(initialPersons => {
         setPersons(initialPersons);
       })
-  });
+  }, []);
 
   return (
     <div>
@@ -32,7 +32,7 @@ const App = () => {
         setPersons={setPersons}
         persons={persons}
       />
-      <ContactList persons={persons} filter={filter} />
+      <ContactList persons={persons} filter={filter} setPersons={setPersons} />
     </div>
   )
 }

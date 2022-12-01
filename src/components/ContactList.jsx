@@ -1,14 +1,14 @@
 import personService from '../services/person.js';
 
-const ContactList = ({ persons, filter }) => {
+const ContactList = ({ persons, filter, setPersons }) => {
 
     const deleteHandler = (person) => {
         if (window.confirm(`Do you really want to delete ${person.name}?`)) {
-            console.log(personService.baseUrl + person.id);
             personService
                 .deletePerson(personService.baseUrl + person.id)
                 .then(response => {
-                    console.log(response.data);
+                    personService.getAll()
+                        .then(personList => setPersons(personList))
                 });
         }
     }

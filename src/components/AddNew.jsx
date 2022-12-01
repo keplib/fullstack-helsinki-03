@@ -6,7 +6,16 @@ const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, pers
         event.preventDefault();
 
         if (isAlreadyinBook(newName, persons)) {
-            alert(`${newName} is already in the book`)
+            if (confirm(`${newName} is already in the book. Do you want to update it?`)) {
+                const itemToUpdate = persons.filter(person => person.name === newName)[0]
+                // const updatedItem = { ...itemToUpdate, number: newNumber }
+                // const url = personService.baseUrl + updatedItem.id
+                personService.updatePerson(personService.baseUrl + itemToUpdate.id, { ...itemToUpdate, number: newNumber })
+                    .then(updatedPerson => {
+                        console.log(updatedPerson);
+                        setPersons(persons.map(p => p.id !== itemToUpdate.id ? p : updatedPerson));
+                    })
+            }
         } else {
             const newPerson = { name: newName, number: newNumber }
 
