@@ -2,13 +2,15 @@ import personService from '../services/person.js';
 
 const ContactList = ({ persons, filter }) => {
 
-    const deleteHandler = (per) => {
-        console.log(personService.baseUrl + per.id);
-        personService
-            .deletePerson(personService.baseUrl + per.id)
-            .then(response => {
-                console.log(response.data);
-            });
+    const deleteHandler = (person) => {
+        if (window.confirm(`Do you really want to delete ${person.name}?`)) {
+            console.log(personService.baseUrl + person.id);
+            personService
+                .deletePerson(personService.baseUrl + person.id)
+                .then(response => {
+                    console.log(response.data);
+                });
+        }
     }
 
     return (

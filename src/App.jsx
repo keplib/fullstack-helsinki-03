@@ -14,9 +14,10 @@ const App = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    personService.getAll()
-      .then(response => {
-        setPersons(response.data);
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons);
       })
   });
 

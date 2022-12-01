@@ -12,8 +12,8 @@ const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, pers
 
             personService
                 .createNew(newPerson)
-                .then(response => {
-                    setPersons(persons.concat(response.data));
+                .then(addedPerson => {
+                    setPersons(persons.concat(addedPerson));
                     setNewName('');
                     setNewNumber('');
                 });
