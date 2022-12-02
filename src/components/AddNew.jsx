@@ -1,6 +1,7 @@
 import personService from '../services/person';
+import Notification from './Notification';
 
-const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, persons }) => {
+const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, persons, notification, setNotification }) => {
 
     const submitName = (event) => {
         event.preventDefault();
@@ -25,6 +26,10 @@ const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, pers
                     setPersons(persons.concat(addedPerson));
                     setNewName('');
                     setNewNumber('');
+                    setNotification(`${newName} has been added to phobebook.`);
+                    setTimeout(() => {
+                        setNotification(null)
+                    }, 5000)
                 });
         }
     }
@@ -45,6 +50,7 @@ const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, pers
 
     return (
         <div>
+            {notification ? <Notification message={notification} /> : null}
             <h3>Add new:</h3>
             <form onSubmit={submitName}>
                 <div>

@@ -1,4 +1,5 @@
 import './App.css'
+import './index.css';
 import Filter from './components/Filter'
 import AddNew from './components/AddNew'
 import ContactList from './components/ContactList'
@@ -12,6 +13,7 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     personService
@@ -31,6 +33,8 @@ const App = () => {
         setNewNumber={setNewNumber}
         setPersons={setPersons}
         persons={persons}
+        notification={notification}
+        setNotification={setNotification}
       />
       <ContactList persons={persons} filter={filter} setPersons={setPersons} />
     </div>
