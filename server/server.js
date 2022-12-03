@@ -41,6 +41,11 @@ app.get('/info', (req, res) => {
     res.end(`${now}`);
 })
 
+app.get('/api/persons/:id', (req, res) => {
+    const personToReturn = persons.filter(person => person.id === Number(req.params.id))
+    res.send(personToReturn);
+})
+
 app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 });
