@@ -4,7 +4,7 @@ const app = express();
 
 const now = new Date();
 
-const persons = [
+let persons = [
     {
         "id": 1,
         "name": "Arto Hellas",
@@ -44,7 +44,13 @@ app.get('/info', (req, res) => {
 app.get('/api/persons/:id', (req, res) => {
     const personToReturn = persons.filter(person => person.id === Number(req.params.id))
     res.send(personToReturn);
-})
+});
+
+app.delete('/api/persons/:id', (req, res) => {
+    let id = Number(req.params.id)
+    persons = persons.filter(person => person.id !== id)
+    res.status(204).end()
+});
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
