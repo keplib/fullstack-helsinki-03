@@ -4,8 +4,15 @@ const PORT = 3000;
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 const now = new Date();
+
+
+// Function to generate a random number for id
+const generateRandomID = () => {
+    return Math.floor(Math.random() * 10000);
+}
 
 let persons = [
     {
@@ -54,6 +61,20 @@ app.delete('/api/persons/:id', (req, res) => {
     persons = persons.filter(person => person.id !== id)
     res.status(204).end()
 });
+
+app.post('/api/persons', (req, res) => {
+    const body = req.body;
+
+    const newPerson = {
+        name: body.name,
+        number: body.number,
+        id: generateRandomID()
+    };
+    persons.push(newPerson);
+    res.status(200);
+    res.send('OK, got the data')
+
+})
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
