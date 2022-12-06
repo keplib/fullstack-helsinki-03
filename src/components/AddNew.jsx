@@ -9,8 +9,6 @@ const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, pers
         if (isAlreadyinBook(newName, persons)) {
             if (confirm(`${newName} is already in the book. Do you want to update it?`)) {
                 const itemToUpdate = persons.filter(person => person.name === newName)[0]
-                // const updatedItem = { ...itemToUpdate, number: newNumber }
-                // const url = personService.baseUrl + updatedItem.id
                 personService.updatePerson(personService.baseUrl + itemToUpdate.id, { ...itemToUpdate, number: newNumber })
                     .then(updatedPerson => {
                         console.log(updatedPerson);
@@ -23,7 +21,8 @@ const AddNew = ({ newName, newNumber, setNewName, setNewNumber, setPersons, pers
             personService
                 .createNew(newPerson)
                 .then(addedPerson => {
-                    setPersons(persons.concat(addedPerson));
+                    personService.getAll()
+                        .then(personList => setPersons(personList))
                     setNewName('');
                     setNewNumber('');
                     setNotification(`${newName} has been added to phobebook.`);

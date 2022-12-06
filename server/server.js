@@ -3,8 +3,19 @@ const cors = require('cors');
 const PORT = 3000;
 const app = express();
 
+const requestLogger = (request, response, next) => {
+    console.log('Method:', request.method)
+    console.log('Path:  ', request.path)
+    console.log('Body:  ', request.body)
+    console.log('---')
+    next()
+}
+
+
+
 app.use(cors());
 app.use(express.json());
+app.use(requestLogger);
 
 const now = new Date();
 
